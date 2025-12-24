@@ -6,6 +6,7 @@ const menuItems = [
   { path: '/servers', icon: 'Server', label: 'Серверы' },
   { path: '/stats', icon: 'Activity', label: 'Статистика' },
   { path: '/settings', icon: 'Settings', label: 'Настройки' },
+  { path: '/pricing', icon: 'CreditCard', label: 'Тарифы' },
   { path: '/account', icon: 'User', label: 'Аккаунт' },
 ];
 
@@ -20,8 +21,8 @@ export const Sidebar = () => {
             <Icon name="Shield" className="text-background" size={24} />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-glow-cyan">SecureVPN</h1>
-            <p className="text-xs text-muted-foreground">Pro Edition</p>
+            <h1 className="text-xl font-bold text-glow-cyan">BlazeSquadsss</h1>
+            <p className="text-xs text-muted-foreground">Ultimate VPN</p>
           </div>
         </div>
       </div>

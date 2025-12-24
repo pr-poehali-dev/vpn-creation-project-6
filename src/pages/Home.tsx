@@ -3,7 +3,7 @@ import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
-  const { isConnected, isConnecting, selectedServer, toggleConnection } = useVPN();
+  const { isConnected, isConnecting, selectedServer, toggleConnection, uploadSpeed, downloadSpeed, connectionTime } = useVPN();
 
   const formatTime = (seconds: number) => {
     const hrs = Math.floor(seconds / 3600);
@@ -82,7 +82,7 @@ export default function Home() {
             <div className="gradient-border p-6 text-center">
               <Icon name="Upload" className="mx-auto mb-2 text-primary" size={24} />
               <p className="text-2xl font-bold text-foreground">
-                {useVPN().uploadSpeed.toFixed(1)} <span className="text-sm text-muted-foreground">Мбит/с</span>
+                {uploadSpeed.toFixed(1)} <span className="text-sm text-muted-foreground">Мбит/с</span>
               </p>
               <p className="text-xs text-muted-foreground mt-1">Отправка</p>
             </div>
@@ -90,14 +90,14 @@ export default function Home() {
             <div className="gradient-border p-6 text-center">
               <Icon name="Download" className="mx-auto mb-2 text-primary" size={24} />
               <p className="text-2xl font-bold text-foreground">
-                {useVPN().downloadSpeed.toFixed(1)} <span className="text-sm text-muted-foreground">Мбит/с</span>
+                {downloadSpeed.toFixed(1)} <span className="text-sm text-muted-foreground">Мбит/с</span>
               </p>
               <p className="text-xs text-muted-foreground mt-1">Загрузка</p>
             </div>
 
             <div className="gradient-border p-6 text-center">
               <Icon name="Clock" className="mx-auto mb-2 text-primary" size={24} />
-              <p className="text-2xl font-bold text-foreground">{formatTime(useVPN().connectionTime)}</p>
+              <p className="text-2xl font-bold text-foreground">{formatTime(connectionTime)}</p>
               <p className="text-xs text-muted-foreground mt-1">Время</p>
             </div>
           </div>

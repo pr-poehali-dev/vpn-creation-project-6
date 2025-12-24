@@ -2,8 +2,11 @@ import Icon from '@/components/ui/icon';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { usePricing } from '@/contexts/PricingContext';
+import { Link } from 'react-router-dom';
 
 export default function Account() {
+  const { currentPlan } = usePricing();
   return (
     <div className="flex-1 p-8">
       <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
@@ -24,7 +27,7 @@ export default function Account() {
               <div className="flex items-center gap-3 mb-2">
                 <h2 className="text-2xl font-bold text-foreground">Александр Петров</h2>
                 <span className="px-3 py-1 text-xs bg-gradient-to-r from-primary to-secondary text-background rounded-full font-semibold">
-                  Премиум
+                  {currentPlan.name}
                 </span>
               </div>
               <p className="text-muted-foreground mb-4">alexander.petrov@email.com</p>
@@ -56,11 +59,13 @@ export default function Account() {
           <div className="bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/30 rounded-lg p-6 mb-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h4 className="text-2xl font-bold text-foreground mb-1">Премиум подписка</h4>
-                <p className="text-sm text-muted-foreground">Активна до 25 января 2026</p>
+                <h4 className="text-2xl font-bold text-foreground mb-1">{currentPlan.name}</h4>
+                <p className="text-sm text-muted-foreground">
+                  {currentPlan.price === 0 ? 'Бесплатный план' : 'Активна до 25 января 2026'}
+                </p>
               </div>
               <div className="text-right">
-                <p className="text-3xl font-bold text-primary">990 ₽</p>
+                <p className="text-3xl font-bold text-primary">{currentPlan.price} ₽</p>
                 <p className="text-sm text-muted-foreground">в месяц</p>
               </div>
             </div>
@@ -70,30 +75,22 @@ export default function Account() {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="flex items-center gap-2 text-sm text-foreground">
-                <Icon name="CheckCircle2" className="text-green-500" size={16} />
-                <span>Безлимитный трафик</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-foreground">
-                <Icon name="CheckCircle2" className="text-green-500" size={16} />
-                <span>Все серверы доступны</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-foreground">
-                <Icon name="CheckCircle2" className="text-green-500" size={16} />
-                <span>До 10 устройств</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-foreground">
-                <Icon name="CheckCircle2" className="text-green-500" size={16} />
-                <span>Приоритетная поддержка</span>
-              </div>
+              {currentPlan.features.slice(0, 4).map((feature, index) => (
+                <div key={index} className="flex items-center gap-2 text-sm text-foreground">
+                  <Icon name="CheckCircle2" className="text-green-500" size={16} />
+                  <span>{feature}</span>
+                </div>
+              ))}
             </div>
           </div>
 
           <div className="flex gap-3">
-            <Button className="bg-gradient-to-r from-primary to-secondary text-background hover:opacity-90">
-              <Icon name="Zap" className="mr-2" size={16} />
-              Продлить подписку
-            </Button>
+            <Link to="/pricing">
+              <Button className="bg-gradient-to-r from-primary to-secondary text-background hover:opacity-90">
+                <Icon name="Zap" className="mr-2" size={16} />
+                {currentPlan.price === 0 ? 'Обновить план' : 'Изменить план'}
+              </Button>
+            </Link>
             <Button variant="outline">
               <Icon name="Gift" className="mr-2" size={16} />
               Подарить подписку
